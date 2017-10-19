@@ -24,6 +24,16 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>For Rec</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>For Rec</string>
+	<key>NSCameraUsageDescription</key>
+	<string>For take your photo</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>For save photo</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>For save photo</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
