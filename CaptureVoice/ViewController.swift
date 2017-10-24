@@ -11,7 +11,7 @@ import AVFoundation
 import Speech
 import UIKit
 
-class ViewController: UIViewController, AVCapturePhotoCaptureDelegate, SFSpeechRecognizerDelegate {
+class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
     @IBOutlet weak var capturedImage: UIImageView!
     @IBOutlet weak var previewView: UIView!
@@ -23,15 +23,13 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate, SFSpeechR
                                      attributes: [],
                                      target: nil)
     
-    let audioEngine = AVAudioEngine()
-    let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))!
-    let request = SFSpeechAudioBufferRecognitionRequest()
-    var recognitionTask: SFSpeechRecognitionTask?
-    var speechSynthesizer = AVSpeechSynthesizer()
-    
     var previewLayer : AVCaptureVideoPreviewLayer!
     var videoDeviceInput: AVCaptureDeviceInput!
     var setupResult: SessionSetupResult = .success
+    
+    var lastTake: Date? = nil
+    
+    let speechViewModel = SpeechViewModel()
     
     enum SessionSetupResult {
         case success
@@ -41,8 +39,7 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate, SFSpeechR
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        speechRecognizer.delegate = self
+
         checkAuthorization()
         
         sessionQueue.async { [unowned self] in
@@ -141,7 +138,11 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate, SFSpeechR
                 }
             }
         }
-        try? startRecording()
+        try? speechViewModel.startRecording(callback: { [unowned self] word in
+            if word == "capture" {
+                self.takePhoto()
+            }
+        })
     }
     
     private func configureSession() {
@@ -211,6 +212,13 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate, SFSpeechR
     }
     
     func takePhoto() {
+        if let lastTake = lastTake {
+            let interval = lastTake.timeIntervalSinceNow
+            if (Int(interval) * -1) < 2 {
+                return
+            }
+        }
+        
         let photoSettings = AVCapturePhotoSettings()
         photoSettings.isHighResolutionPhotoEnabled = true
         if self.videoDeviceInput.device.isFlashAvailable {
@@ -219,7 +227,10 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate, SFSpeechR
         if !photoSettings.__availablePreviewPhotoPixelFormatTypes.isEmpty {
             photoSettings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String: photoSettings.__availablePreviewPhotoPixelFormatTypes.first!]
         }
+
         photoOutput.capturePhoto(with: photoSettings, delegate: self)
+        
+        lastTake = Date()
     }
     
     // MARK: - AVCapturePhotoCaptureDelegate Methods
@@ -238,38 +249,6 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate, SFSpeechR
             }
         }
         
-    }
-    
-    func startRecording() throws {
-        let node = audioEngine.inputNode
-        let recordingFormat = node.outputFormat(forBus: 0)
-        node.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, _) in
-            self.request.append(buffer)
-        }
-        
-        audioEngine.prepare()
-        try audioEngine.start()
-        
-        recognitionTask = speechRecognizer.recognitionTask(with: request) { result, error in
-            
-            if let result = result {
-                let rawWord = result.bestTranscription.formattedString.lowercased().components(separatedBy: " ").last
-                guard let word = rawWord else {
-                    return
-                }
-                print("TEXT: \(word)")
-                if word == "capture" {
-                    self.takePhoto()
-                    
-                }
-            }
-        }
-    }
-    
-    func cancelRecording() {
-        audioEngine.stop()
-        request.endAudio()
-        recognitionTask?.cancel()
     }
 
 }
