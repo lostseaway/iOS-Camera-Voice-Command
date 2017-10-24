@@ -13,6 +13,7 @@
 		162265381F5D588E0075039D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 162265371F5D588E0075039D /* Assets.xcassets */; };
 		1622653B1F5D588E0075039D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 162265391F5D588E0075039D /* LaunchScreen.storyboard */; };
 		162265461F5D588E0075039D /* CaptureVoiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162265451F5D588E0075039D /* CaptureVoiceTests.swift */; };
+		1681E7C61F9F31270032411A /* SpeechViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1681E7C51F9F31270032411A /* SpeechViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		162265411F5D588E0075039D /* CaptureVoiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CaptureVoiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		162265451F5D588E0075039D /* CaptureVoiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureVoiceTests.swift; sourceTree = "<group>"; };
 		162265471F5D588E0075039D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1681E7C51F9F31270032411A /* SpeechViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpeechViewModel.swift; path = ViewModels/SpeechViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				162265371F5D588E0075039D /* Assets.xcassets */,
 				162265391F5D588E0075039D /* LaunchScreen.storyboard */,
 				1622653C1F5D588E0075039D /* Info.plist */,
+				1681E7C51F9F31270032411A /* SpeechViewModel.swift */,
 			);
 			path = CaptureVoice;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				162265331F5D588E0075039D /* ViewController.swift in Sources */,
+				1681E7C61F9F31270032411A /* SpeechViewModel.swift in Sources */,
 				162265311F5D588E0075039D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
