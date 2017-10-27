@@ -38,6 +38,7 @@
 		162265451F5D588E0075039D /* CaptureVoiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureVoiceTests.swift; sourceTree = "<group>"; };
 		162265471F5D588E0075039D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1681E7C51F9F31270032411A /* SpeechViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpeechViewModel.swift; path = ViewModels/SpeechViewModel.swift; sourceTree = "<group>"; };
+		1681E7FA1FA096B40032411A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +62,7 @@
 		162265241F5D588E0075039D = {
 			isa = PBXGroup;
 			children = (
+				1681E7FA1FA096B40032411A /* README.md */,
 				1622652F1F5D588E0075039D /* CaptureVoice */,
 				162265441F5D588E0075039D /* CaptureVoiceTests */,
 				1622652E1F5D588E0075039D /* Products */,
